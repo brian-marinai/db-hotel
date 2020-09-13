@@ -1,7 +1,7 @@
 es-1 SELECT * FROM ospiti WHERE document_type LIKE 'CI'
-es-2 SELECT * FROM ospiti WHERE date_of_birth >= '1980'
-es-3 SELECT * FROM ospiti WHERE date_of_birth >= '2000-09-10'
-es-4 SELECT * FROM ospiti WHERE name LIKE 'd%'
-es-5 SELECT SUM(price) FROM pagamenti
+es-2 SELECT * FROM ospiti WHERE YEAR(date_of_birth) >= '1988'
+es-3 SELECT name, lastname FROM ospiti WHERE YEAR(NOW()) - YEAR(date_of_birth) > '20'
+es-4 SELECT name, lastname FROM ospiti WHERE name LIKE 'D%'
+es-5 SELECT SUM(price) FROM pagamenti WHERE status LIKE 'accepted'
 es-6 SELECT MAX(price) FROM pagamenti
-es-7 SELECT * FROM ospiti WHERE date_of_birth = '1975' AND document_type LIKE 'Drive License'
+es-7 SELECT * FROM ospiti WHERE YEAR(date_of_birth) = '1975' AND document_type LIKE 'Drive License'
