@@ -5,3 +5,28 @@ es-4 SELECT name, lastname FROM ospiti WHERE name LIKE 'D%'
 es-5 SELECT SUM(price) FROM pagamenti WHERE status LIKE 'accepted'
 es-6 SELECT MAX(price) FROM pagamenti
 es-7 SELECT * FROM ospiti WHERE YEAR(date_of_birth) = '1975' AND document_type LIKE 'Drive License'
+
+GROUP BY
+es-1 SELECT YEAR(date_of_birth), COUNT(*) FROM ospiti GROUP BY YEAR(date_of_birth)
+es-2 SELECT status, SUM(price) FROM pagamenti GROUP BY status
+es-3 SELECT stanza_id, COUNT(*) FROM prenotazioni GROUP BY stanza_id
+es-4 SELECT HOUR(created_at), COUNT(*) FROM prenotazioni GROUP BY HOUR(created_at)
+
+JOIN
+
+es-1 SELECT ospiti.name, ospiti.lastname, COUNT(ospiti.id) AS "# PRENOTAZIONI"
+FROM prenotazioni_has_ospiti
+    JOIN ospiti
+        ON prenotazioni_has_ospiti.ospite_id = ospiti.id
+GROUP BY prenotazioni_has_ospiti.ospite_id
+HAVING COUNT(ospiti.id) > 2
+
+es-2 SELECT prenotazioni.*, ospiti.name, ospiti.lastname
+FROM prenotazioni 
+JOIN prenotazioni_has_ospiti
+ON prenotazioni.id = prenotazioni_has_ospiti.prenotazione_id
+JOIN ospiti
+ON prenotazioni_has_ospiti.ospite_id = ospiti.id
+
+
+
